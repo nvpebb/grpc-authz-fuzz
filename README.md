@@ -1,2 +1,2 @@
-# GreyREST
-Coverage-guided fuzzing framework for C++ REST APIs with optional CI/CD integration.
+# grpc-authz-fuzz
+Stateful Coverage-Guided Fuzzing of gRPC Services for Access Control Vulnerability Detection
