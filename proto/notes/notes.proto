@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package notes;
+
+option cc_enable_arenas = true;
+
+service Notes {
+  rpc Echo(EchoRequest) returns (EchoResponse);
+  rpc PutNote(PutNoteRequest) returns (PutNoteResponse);
+  rpc GetNote(GetNoteRequest) returns (GetNoteResponse);
+  rpc Reset(ResetRequest) returns (ResetResponse);
+}
+
+message EchoRequest {
+  string message = 1;
+}
+
+message EchoResponse {
+  string message = 1;
+}
+
+message PutNoteRequest {
+  string title = 1;
+}
+
+message PutNoteResponse {
+  string note_id = 1;
+}
+
+message GetNoteRequest {
+  string note_id = 1;
+}
+
+message GetNoteResponse {
+  string note_id = 1;
+  string title = 2;
+  string owner = 3;
+}
+
+message ResetRequest {}
+
+message ResetResponse {}

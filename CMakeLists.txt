@@ -1,0 +1,37 @@
+cmake_minimum_required(VERSION 3.24)
+project(grpc-authz-fuzz VERSION 0.1.0 LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+find_package(protobuf CONFIG REQUIRED)
+find_package(gRPC CONFIG REQUIRED)
+find_package(GTest CONFIG REQUIRED)
+find_package(yaml-cpp CONFIG REQUIRED)
+find_package(CLI11 CONFIG REQUIRED)
+find_package(spdlog CONFIG REQUIRED)
+
+if(DEFINED protobuf_PACKAGE_FOLDER_RELEASE)
+  set(_conan_protoc "${protobuf_PACKAGE_FOLDER_RELEASE}/bin/protoc")
+elseif(DEFINED protobuf_PACKAGE_FOLDER)
+  set(_conan_protoc "${protobuf_PACKAGE_FOLDER}/bin/protoc")
+endif()
+if(DEFINED _conan_protoc AND EXISTS "${_conan_protoc}")
+  set(Protobuf_PROTOC_EXECUTABLE "${_conan_protoc}" CACHE FILEPATH "The protoc compiler" FORCE)
+  if(TARGET protobuf::protoc)
+    set_property(TARGET protobuf::protoc PROPERTY IMPORTED_LOCATION "${_conan_protoc}")
+  endif()
+  message(STATUS "Forced Conan protoc: ${_conan_protoc}")
+endif()
+
+include(cmake/ProtobufGrpc.cmake)
+
+include(CTest)
+enable_testing()
+
+add_subdirectory(proto)
+add_subdirectory(targets/notes)
+add_subdirectory(src)
+add_subdirectory(tests)
