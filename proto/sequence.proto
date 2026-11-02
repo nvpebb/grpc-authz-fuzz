@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package grpc_authz_fuzz;
+
+option cc_enable_arenas = true;
+
+message FieldPath {
+  repeated string parts = 1;
+}
+
+message Binding {
+  uint32 from_step = 1;
+  FieldPath from_field = 2;
+  uint32 to_step = 3;
+  FieldPath to_field = 4;
+}
+
+message Step {
+  string method = 1;
+  string request_type = 2;
+  bytes request = 3;
+  string principal_id = 4;
+  map<string, string> metadata = 5;
+}
+
+message Sequence {
+  repeated Step steps = 1;
+  repeated Binding bindings = 2;
+  string target_id = 3;
+}

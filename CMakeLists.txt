@@ -30,3 +30,6 @@ include(cmake/ProtobufGrpc.cmake)
 
 include(CTest)
 enable_testing()
+
+add_subdirectory(proto)
+add_subdirectory(tests)
