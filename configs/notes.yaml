@@ -1,0 +1,18 @@
+# Example campaign config (yaml loader not wired yet; CLI flags work).
+target: notes
+transport: inprocess
+workers: 1
+oracles: []
+max_steps: 8
+respawn_every_k: 100
+
+# Equivalent CLI smoke:
+#   grpc-authz-fuzz run -j 2 --max-jobs 4 --respawn-every-k 2
+
+principals:
+  alice:
+    metadata:
+      x-user-id: alice
+  bob:
+    metadata:
+      x-user-id: bob

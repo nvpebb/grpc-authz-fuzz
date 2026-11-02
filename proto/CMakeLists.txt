@@ -4,6 +4,7 @@ grpc_authz_add_proto_library(
   PROTO_ROOT "${CMAKE_CURRENT_SOURCE_DIR}"
   PROTOS
     "${CMAKE_CURRENT_SOURCE_DIR}/sequence.proto"
+    "${CMAKE_CURRENT_SOURCE_DIR}/worker.proto"
 )
 
 # Notes synthetic target — protobuf + gRPC stubs.

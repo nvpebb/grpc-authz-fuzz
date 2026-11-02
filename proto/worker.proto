@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package grpc_authz_fuzz;
+
+import "sequence.proto";
+
+option cc_enable_arenas = true;
+
+// Parent → worker: one Sequence job.
+message WorkerJob {
+  uint64 job_id = 1;
+  Sequence sequence = 2;
+}
+
+// Worker → parent: short execution result (coverage lives in SHM).
+message StepOutcome {
+  uint32 step_index = 1;
+  int32 status_code = 2;
+  string status_message = 3;
+  string response_type = 4;
+  bytes response = 5;
+}
+
+message WorkerResult {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    OK = 1;
+    TARGET_ERROR = 2;
+    INTERNAL_ERROR = 3;
+  }
+
+  uint64 job_id = 1;
+  Status status = 2;
+  string error_message = 3;
+  uint32 steps_executed = 4;
+  uint32 coverage_slots_set = 5;  // occupied stub coverage slots, not sancov edges
+  repeated StepOutcome outcomes = 6;
+}
