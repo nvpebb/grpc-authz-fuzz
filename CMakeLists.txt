@@ -33,4 +33,5 @@ enable_testing()
 
 add_subdirectory(proto)
 add_subdirectory(targets/notes)
+add_subdirectory(src)
 add_subdirectory(tests)

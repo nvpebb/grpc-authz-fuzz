@@ -13,3 +13,11 @@ target_link_libraries(notes_inprocess_test
     GTest::gtest_main
 )
 add_test(NAME notes_inprocess_test COMMAND notes_inprocess_test)
+
+add_executable(notes_invoker_test notes_invoker_test.cpp)
+target_link_libraries(notes_invoker_test
+  PRIVATE
+    grpc_authz_fuzz_engine
+    GTest::gtest_main
+)
+add_test(NAME notes_invoker_test COMMAND notes_invoker_test)
